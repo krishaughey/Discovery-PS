@@ -11,4 +11,4 @@ get-website | select name,id,state,physicalpath,
 @{n="attributes"; e={($_.attributes | % { $_.name + "=" + $_.value }) -join ';' }} |
 
 
-Export-Csv -NoTypeInformation -Path C:\Temp\WebsiteBindings_$timestamp.csv -NoTypeInformation
+Export-Csv -Path C:\Temp\WebsiteBindings_$timestamp.csv -NoTypeInformation
