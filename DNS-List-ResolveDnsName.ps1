@@ -4,7 +4,7 @@
 
 $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
 
-## if you have a short list ---> $DomainNames = @('adamtheautomator.com','powershell.org','xyz.local')
+## if you have a short list, replace line 8 with <$DomainNames = @('google.com','bing.com','duckduckgo.com')>
 $DomainNames = get-content c:\Temp\WebsiteList.txt
 $ServerList = @('8.8.8.8','8.8.4.4','208.67.222.222','208.67.220.220')
 
