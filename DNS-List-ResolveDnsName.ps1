@@ -4,26 +4,26 @@
 
 $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
 
-## if you have a short list ---> $DomainNames = @('adamtheautomator.com','powershell.org','xyz.local')
+## if you have a short list, replace line 8 with <$DomainNames = @('google.com','bing.com','duckduckgo.com')>
 $DomainNames = get-content c:\Temp\WebsiteList.txt
 $ServerList = @('8.8.8.8','8.8.4.4','208.67.222.222','208.67.220.220')
 
-$DataSet = @()
+$Array = @()
 foreach ($Name in $DomainNames) {
-    $TempObject = "" | Select-Object Name,IPAddress,Status,ErrorMessage
+    $Resolve = "" | Select-Object Name,IPAddress,Status,ErrorMessage
     try {
         $dnsRecord = Resolve-DnsName $Name -Server $ServerList -ErrorAction Stop | Where-Object {$_.Type -eq 'A'}
-        $TempObject.Name = $Name
-        $TempObject.IPAddress = ($dnsRecord.IPAddress -join ',')
-        $TempObject.Status = 'OK'
-        $TempObject.ErrorMessage = ''
+        $Resolve.Name = $Name
+        $Resolve.IPAddress = ($dnsRecord.IPAddress -join ',')
+        $Resolve.Status = 'OK'
+        $Resolve.ErrorMessage = ''
     }
     catch {
-        $TempObject.Name = $Name
-        $TempObject.IPAddress = ''
-        $TempObject.Status = 'ERROR'
-        $TempObject.ErrorMessage = $_.Exception.Message
+        $Resolve.Name = $Name
+        $Resolve.IPAddress = ''
+        $Resolve.Status = 'ERROR'
+        $Resolve.ErrorMessage = $_.Exception.Message
     }
-    $DataSet += $TempObject
+    $Array += $Resolve
 }
-$DataSet | export-csv c:\Temp\ExternalDNS_$Timestamp.csv -NoTypeInformation
+$Array | export-csv c:\Temp\ExternalDNS_$Timestamp.csv -NoTypeInformation
