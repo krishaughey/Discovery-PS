@@ -1,6 +1,11 @@
 ## SystemDiscovery-PS/Nmap
 ##### PowerShell and Nmap statements/scripts for discovering hosts, DNS, ports, certificates, etc...
 
+##### Simple Timestamp Variable
+> $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
+
+
+### Nmap statements
 > https://www.stationx.net/nmap-cheat-sheet/
 
 ###### Nmap - Scan a Subnet for Responses
