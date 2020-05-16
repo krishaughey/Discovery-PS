@@ -4,6 +4,8 @@
 ##### Simple Timestamp Variable
 > $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
 
+
+### Nmap statements
 > https://www.stationx.net/nmap-cheat-sheet/
 
 ###### Nmap - Scan a Subnet for Responses
