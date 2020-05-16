@@ -13,14 +13,14 @@ foreach ($Domain in $DomainList) {
         $Curl = Invoke-WebRequest $Domain
         $Resolve.Name = $Domain
         $Resolve.statusdescription = ($Curl.statusdescription -join ',')
-        $Resolve.statuscode = ($Curl.statuscode -join ',')
+    #?    $Resolve.statuscode = ($Curl.statuscode -join ',')
   }
-  #????????? MAYBE REMOVE THE TRY AND CATCH? GETTING 'OK' in statusdescription for all
+  @'????????? MAYBE REMOVE THE TRY AND CATCH? GETTING 'OK' in statusdescription for all
     catch {
       $Resolve.Name = $Domain
       $Resolve.statusdescription = ($Curl.statusdescription -join ',')
       $Resolve.statuscode = ""
-    }
+    } '@
     $Array += $Resolve
 }
 $Array | export-csv "C:\Temp\WebsiteStatus_$timestamp.csv" -NoTypeInformation
