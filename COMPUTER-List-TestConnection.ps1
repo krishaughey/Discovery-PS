@@ -4,7 +4,7 @@
 $ErrorActionPreference = 'silentlycontinue'
 $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
 $ServerList = (Get-Content c:\Temp\ServerList.txt)
-Write-Host "Enter the hostname or IP of your ping source"
+Write-Host "Enter the hostname or IP of your ping source (will accept 'localhost')"
 $Source = Read-Host -Prompt "-->"
 
 $Array = @()
