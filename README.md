@@ -4,6 +4,8 @@
 ##### Simple Timestamp Variable
 > $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
 
+###### Get next hop (no internal)
+> Get-NetRoute | Where-Object -FilterScript { $_.NextHop -Ne "::" } | Where-Object -FilterScript { $_.NextHop -Ne "0.0.0.0" } | Where-Object -FilterScript { ($_.NextHop.SubString(0,6) -Ne "fe80::") }
 
 ### Nmap statements
 > https://www.stationx.net/nmap-cheat-sheet/
