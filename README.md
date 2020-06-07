@@ -5,7 +5,7 @@
 > $timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
 
 ###### Get next hop (no internal)
-> Get-NetRoute | Where-Object -FilterScript { $_.NextHop -Ne "::" } | Where-Object -FilterScript { $_.NextHop -Ne "0.0.0.0" } | Where-Object -FilterScript { ($_.NextHop.SubString(0,6) -Ne "fe80::") }
+  > Get-NetRoute | Where-Object -FilterScript { $_.NextHop -Ne "::" } | Where-Object -FilterScript {  $_.NextHop -Ne "0.0.0.0" } | Where-Object -FilterScript { ($_.NextHop.SubString(0,6) -Ne "fe80::") }
 
 ### Nmap statements
 > https://www.stationx.net/nmap-cheat-sheet/
@@ -30,6 +30,9 @@
 
 ###### Nmap - Scan from a list of Nodes
     nmap -iL list-of-ips.txt
+
+###### Nmap - Scan over VPN Connection
+    nmap -v -e ppp0 -n -T4 -Pn --unprivileged <HOST or IP>
 
 ###### PS - Ping from a specified source
     Test-Connection -Source <HostName1> -Destination <HostName2>
