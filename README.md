@@ -20,7 +20,7 @@
     nmap --script ssl-enum-ciphers -p 443 example.com
 
 ###### Nmap - Determine Cert info
-    nmap ssl-cert -sV -sC 10.101.16.235
+    nmap --script ssl-cert -sV -sC vpn.DOMAIN.COM
 
 ###### Nmap - Determine Cert Cipher Info on specific port
     nmap -sV --script ssl-enum-ciphers -p 443 <host>
