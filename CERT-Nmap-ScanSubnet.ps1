@@ -1,27 +1,12 @@
 ## Discover Certificates on Subnet
-##### Nmap SSL-Cert -- scan a selected subnet for certitficates in use and report
+##### Nmap SSL-Cert -- scan a selected subnet for bound certitficates and report in all three nmap formats
 ##### author: Kristopher F. Haughey
 
-$timestamp = Get-Date -Format s | ForEach-Object { $_ -replace ":", "." }
-$TempDir = "c:\Temp\"
-$TempFile = "ScanSubnet_Temp.xml"
-Write-Host "enter a hostname, IP, or IP range (CIDR)" -ForegroundColor Green
-$Target = Read-Host -Prompt "-->"
-
-$Array = @()
-foreach ($Server in $ServerList){
-$colItems = nmap --script ssl-cert -sV -sC -oX $TempDir+$TempFile $Target
-[xml]$XmlDocument = Get-Content -Path $TempDir$TempFile
-
-  foreach ($Reply in $colItems){
-    $Array += New-Object PSObject -Property ([ordered]@{
-      'Scope' = $Target
-      'Destination' = $Reply.Address
-      'DestinationIP' = $Reply.ProtocolAddress
-      'ResponseTime' = $Reply.ResponseTime
-      'BytesSent' = $Reply.BufferSize
-      'BytesRecived' = $Reply.ReplySize})
-  }
+$TempDir = "c:\Temp\CertScans\"
+$TempFile = "CertScan"
+$TargetList = Import-csv "c:\Temp\CertScans\TargetList.csv"
+foreach ($Target in $TargetList){
+	$subnet = $target.subnet
+	$nickName = $target.nickName
+    	Invoke-Command -ScriptBlock {nmap $subnet --script ssl-cert -sV -sC -oA $TempDir$nickName$TempFile}
 }
-$Array | Export-Csv "c:\Temp\PingStatus_$timestamp.csv" -NoTypeInformation
-Write-Host "results have been exported to "c:\Temp\CertificateBindings-Report_$timestamp.csv"" -ForegroundColor Cyan
