@@ -11,7 +11,7 @@ foreach ($Target in $TargetList){
     	Invoke-Command -ScriptBlock {nmap $subnet --script ssl-cert -sV -sC -oA $TempDir$nickName$TempFile}
 }
 #### sample CSV
-@'subnet,nickName
+'@subnet,nickName
 192.168.251.0/24,251
 192.168.200.0/24,200
 192.168.103.0/24,103
