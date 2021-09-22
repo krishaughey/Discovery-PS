@@ -9,7 +9,7 @@ $Source = Read-Host -Prompt "-->"
 
 $Array = @()
 foreach ($Server in $ServerList){
-$colItems = Test-Connection -Source $Source -ComputerName $Server -Count 1 | Select-Object PSComputerName,Address,ProtocolAddress,ResponseTime,BufferSize,ReplySize
+$colItems = Test-Connection -Source $Source -ComputerName $Server -Count 1 -Port 135 #| Select-Object PSComputerName,Address,ProtocolAddress,ResponseTime,BufferSize,ReplySize
   foreach ($Reply in $colItems){
     $Array += New-Object PSObject -Property ([ordered]@{
       'Source' = $Source
@@ -21,4 +21,4 @@ $colItems = Test-Connection -Source $Source -ComputerName $Server -Count 1 | Sel
   }
 }
 $Array | Export-Csv "c:\Temp\PingStatus_$timestamp.csv" -NoTypeInformation
-Write-Host "results have been exported to "c:\Temp\PingStatus_$timestamp.csv"" -ForegroundColor Cyan
+Write-Host "results have been exported to "c:\Temp\Port_135_Status_$timestamp.csv"" -ForegroundColor Cyan
