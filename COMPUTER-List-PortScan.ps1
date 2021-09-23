@@ -1,0 +1,1 @@
+Get-Content c:\Temp\IpList.txt | % { $a = $_; write-host “ — — — “; write-host “$a”; 22,25,80,135,443,445,389,3389 | % {echo ((new-object Net.Sockets.TcpClient).Connect(“$a”,$_)) “Port $_ is open!”} 2>$null}
