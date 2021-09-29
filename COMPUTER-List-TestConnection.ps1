@@ -13,7 +13,7 @@ $colItems = Test-Connection -TargetName $Server -Count 1 | Select-Object Source,
       'Destination' = $Reply.Destination
       'DestinationIP' = $Reply.Address
       'Status' = $Reply.Status
-      'ResponseTime' = $Reply.Status})
+      'ResponseTime' = $Reply.Latency})
   }
 }
 $Array | Export-Csv "c:\Temp\ICMP_Test_$timestamp.csv" -NoTypeInformation
